@@ -1,41 +1,49 @@
-import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
-import ComboBox from '../../ui/comboBox/comboBoxComponent';
-import {reduxForm} from 'redux-form';
+import React, { Component } from 'react';
+import { Row, Col } from 'react-flexbox-grid';
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { consultInfoModule } from './actions';
+import { MODULE_RECYCLING } from '../../constantsGlobal';
+import {redirectUrl} from '../../actionsGlobal';
+import ButtonsComponent from '../buttonsComponent/buttonsComponent';
+import FrameVideo from '../iframeVideo/iframeVideo';
+import { get } from 'lodash';
+import $ from 'jquery';
 
+const HEIGTH_PANEL_BOTTOMS = 40;
 
-
-const propsComboBox = {
-    nameInput: 'Pagina',
-    labelInput: 'Página',
-    data: [
-        {
-            id: 1,
-            value: 't'
-        },
-        {
-            id: 2,
-            value: 'x'
-        }
-    ],
-    textProp: 'value',
-    valueProp: 'id'
-};
-
-class uiTester extends Component {
+class InitialVideo extends Component {
     constructor(props) {
         super(props);
     }
 
+    componentWillMount() {
+        const { consultInfoModule } = this.props;
+        consultInfoModule(MODULE_RECYCLING);
+    }
     render() {
+        const { initialVideoRecuder } = this.props;
+        const linkVideo = get(initialVideoRecuder.get('infoModule'), 'linkInitialVideo', null);
         return (
             <Row>
-                <Col xs={12} md={12} lg={12} >
-                    <p>Holaaaaaaaaaaaaaa</p>
-                </Col>
+                <ButtonsComponent/>
+                <FrameVideo linkVideo={linkVideo} 
+                    height={$(window).height() - HEIGTH_PANEL_BOTTOMS - 4} 
+                    paddingTop={HEIGTH_PANEL_BOTTOMS}/>
             </Row>
         );
     }
 }
 
-export default uiTester;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        consultInfoModule
+    }, dispatch);
+}
+
+function mapStateToProps({ initialVideoRecuder }) {
+    return { initialVideoRecuder };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InitialVideo);
