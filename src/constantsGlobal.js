@@ -9,3 +9,7 @@ export const APP_URL = API_URL;
 
 
 export const MODULE_RECYCLING = "Reciclaje";
+export const VALUE_REQUIERED = "Debe ingresar un valor";
+export const STATUS_SUCCESS = 200;
+export const SUCCESS = 0;
+export const FAILURE = -1;

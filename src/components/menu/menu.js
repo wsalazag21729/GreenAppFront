@@ -37,7 +37,7 @@ class MenuComponent extends Component {
                 <Menu vertical>
                     <Menu.Item as='a' onClick={this._cickEnterToContent}>{MODULE_RECYCLING}</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToForo}>Foro</Menu.Item>
-                    <Menu.Item as='a' onClick={this._cickEnterToTest}>Evaluate!</Menu.Item>
+                    <Menu.Item as='a' onClick={this._cickEnterToTest}>¡Evaluate!</Menu.Item>
                 </Menu>
             </div>
         );

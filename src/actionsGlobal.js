@@ -15,6 +15,15 @@ export function redirectUrl(url) {
     }
 }
 
+export function validateField(value){
+    return _.isUndefined(value) || _.isNull(value) || _.isEmpty(value) ? true : false;
+}
+
+export function shorterStringValue(element, minLength) {
+    const lengthDafault = _.isUndefined(minLength) ? 50 : minLength;
+    return element === null || element === undefined || element == '' ? '' : element.length > lengthDafault ? element.substring(0, lengthDafault) + "..." : element;
+}
+
 export function _clickBack() {
     redirectUrl("/initialVideo");
 }

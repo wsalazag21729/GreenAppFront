@@ -43,7 +43,6 @@ class TextareaComponent extends Component {
                 <textarea
                   name={nameInput}
                   onChange={onChange}
-                  onKeyPress={this._onEnter}
                   onBlur={this._onBlur}
                   placeholder={placeholder}
                   maxLength={max}
