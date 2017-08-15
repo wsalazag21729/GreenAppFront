@@ -32,7 +32,7 @@ class ModuleContent extends Component {
                 <Col xs={3} md={3} lg={2} style={{ height: $(window).height() }}>
                     <MenuComponent />
                 </Col>
-                <Col xs={9} md={9} lg={10} style={{ height: $(window).height() }}>
+                <Col xs={9} md={9} lg={10} style={{ height: $(window).height(), paddingLeft: '15px' }}>
                     {this.props.children}
                 </Col>
             </Row>

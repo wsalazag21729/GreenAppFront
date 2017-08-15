@@ -14,7 +14,7 @@ class Discussion extends Component {
 
     _editValueModal(value) {
         const { openCloseModal } = this.props;
-        openCloseModal(true);
+        openCloseModal(value);
     }
 
     render() {

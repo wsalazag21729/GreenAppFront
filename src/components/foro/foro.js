@@ -9,6 +9,7 @@ import ButtonsComponent from '../buttonsComponent/buttonsComponent';
 import Discussion from './discussion/discussion';
 import ItemDiscussion from './itemDiscussion/itemDiscussion';
 import { validateField, redirectUrl } from '../../actionsGlobal';
+import {HEIGTH_CONTROL_PANEL} from '../../constantsGlobal';
 import $ from 'jquery';
 
 class Foro extends Component {
@@ -27,9 +28,9 @@ class Foro extends Component {
         }
     }
 
-    _mapItems(discussion, key) {
+    _mapItems(discussion, idx) {
         return <ItemDiscussion
-            key={key}
+            key={idx}
             idDiscussion={discussion.idDiscussion}
             title={discussion.title}
             description={discussion.description}
@@ -46,7 +47,7 @@ class Foro extends Component {
                     <ButtonsComponent />
                     <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> Foro </p>
                     <Discussion />
-                    <div style={{ overflowY: 'auto', overflowX: 'hidden', height: $(window).height() - 70, marginTop: '10px', paddingRight: '10px', paddingBottom: '15px' }}>
+                    <div style={{ overflowY: 'auto', overflowX: 'hidden', height: $(window).height() - HEIGTH_CONTROL_PANEL, marginTop: '10px', paddingRight: '10px', paddingBottom: '15px' }}>
                         {!validateField(foroReducer.get('listInfoDiscussions')) &&
                             foroReducer.get('listInfoDiscussions').map(this._mapItems)
                         }

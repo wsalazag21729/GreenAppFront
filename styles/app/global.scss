@@ -216,6 +216,11 @@ input[disabled] {
   color: #FF0000 !important;
 }
 
+.view-detail-discussion:hover {
+  text-decoration: underline !important;
+}
+
+
 .rw-state-disabled {
   opacity: 0.7 !important;
 }

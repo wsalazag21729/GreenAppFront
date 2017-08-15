@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { shorterStringValue } from '../../../actionsGlobal';
+import { shorterStringValue, redirectUrl } from '../../../actionsGlobal';
+import { setDiscussionSeleted } from '../actions';
 import moment from 'moment';
 
 class ItemDiscussion extends Component {
@@ -12,8 +13,16 @@ class ItemDiscussion extends Component {
     }
 
     _viewDetailDiscussion() {
-        const { idDiscussion } = this.props;
-        alert('Detalle' + idDiscussion);
+        const { setDiscussionSeleted, idDiscussion, title, description, nameUser, createTimestamp  } = this.props;
+        const jsonDiscussion = {
+            idDiscussion,
+            title,
+            nameUser,
+            description,
+            createTimestamp
+        };
+        setDiscussionSeleted(jsonDiscussion);
+        redirectUrl("/moduleContent/comments");
     }
 
     render() {
@@ -21,7 +30,7 @@ class ItemDiscussion extends Component {
         return (
             <Row style={{
                 marginLeft: '8px', marginRight: '15px', width: '100%', height: '120px', marginTop: '10px',
-                overflow: 'hidden', border: '1px solid #DCDCDC', borderRadius: '8px', padding: '5px', boxShadow: '0px 1px 2px 0 rgba(34, 36, 38, 0.15)'
+                overflow: 'hidden', border: '1px solid #DCDCDC', padding: '5px', boxShadow: '0px 1px 2px 0 rgba(34, 36, 38, 0.15)'
             }}>
                 <Col xs={4} md={3} lg={3} style={{ height: '25px' }}>
                     <span style={{ fontWeight: 'bold' }}>Nombre: </span>{shorterStringValue(nameUser, 20)}
@@ -37,7 +46,7 @@ class ItemDiscussion extends Component {
                     <div>{shorterStringValue(description, 330)}</div>
                 </Col>
                 <Col xs={4} md={6} lg={3} style={{ textAlign: 'left' }}>
-                    <i className="unhide icon blue" role="close" onClick={this._viewDetailDiscussion}
+                    <i className="unhide icon blue view-detail-discussion" role="close" onClick={this._viewDetailDiscussion}
                         style={{ cursor: 'pointer', width: '80px' }}> Ver detalle
                     </i>
                 </Col>
@@ -48,6 +57,7 @@ class ItemDiscussion extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        setDiscussionSeleted
     }, dispatch);
 }
 

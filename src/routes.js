@@ -5,6 +5,7 @@ import initialVideo from './components/initialVideo/initialVideo';
 import moduleContent from './components/moduleContent/moduleContent';
 import content from './components/content/content';
 import foro from './components/foro/foro';
+import comments from './components/foro/comments/comments';
 import test from './components/test/test';
 
 class App extends Component {
@@ -25,6 +26,7 @@ export default (
             <Route path="moduleContent" component={moduleContent}>
                 <Route path="content" component={content}></Route>
                 <Route path="foro" component={foro}></Route>
+                <Route path="comments" component={comments}></Route>
                 <Route path="test" component={test}></Route>
             </Route>
         </Route>

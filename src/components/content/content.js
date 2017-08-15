@@ -17,7 +17,7 @@ class Content extends Component {
         const { moduleContentReducer } = this.props;
         const descriptionModule = get(moduleContentReducer.get('moduleDescription'), 'moduleDescription', null);
         return <div style={{ height: '180px', marginLeft: '7px', marginRight: '7px', overflow: 'auto', 
-            border: '1px solid #DCDCDC', borderRadius: '8px', padding: '5px', boxShadow: '0px 1px 2px 0 rgba(34, 36, 38, 0.15)'}}
+            border: '1px solid #DCDCDC', padding: '5px', boxShadow: '0px 1px 2px 0 rgba(34, 36, 38, 0.15)'}}
             dangerouslySetInnerHTML={{ __html: descriptionModule }}>
         </div>;
     }

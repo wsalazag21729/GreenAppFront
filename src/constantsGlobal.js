@@ -13,3 +13,4 @@ export const VALUE_REQUIERED = "Debe ingresar un valor";
 export const STATUS_SUCCESS = 200;
 export const SUCCESS = 0;
 export const FAILURE = -1;
+export const HEIGTH_CONTROL_PANEL = 70;

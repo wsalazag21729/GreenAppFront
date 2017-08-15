@@ -6,11 +6,11 @@ import Input from '../../../ui/input/inputComponent';
 import TextArea from '../../../ui/textarea/textareaComponent';
 import { VALUE_REQUIERED, SUCCESS, STATUS_SUCCESS } from '../../../constantsGlobal';
 import { validateField } from '../../../actionsGlobal';
-import { saveDiscussion, consultInfoDiscussions, openCloseModal } from '../actions';
+import { saveComment, consultInfoComments, openCloseModalComment } from '../actions';
 import SweetAlert from 'sweetalert-react';
 import { get, isEqual } from 'lodash';
 
-const fields = ["nameUser", 'title', 'description'];
+const fields = ["nameUser", 'comment'];
 
 const validate = (values) => {
     const errors = {};
@@ -19,63 +19,57 @@ const validate = (values) => {
     } else {
         errors.nameUser = null;
     }
-    if (validateField(values.title)) {
-        errors.title = VALUE_REQUIERED;
+    if (validateField(values.comment)) {
+        errors.comment = VALUE_REQUIERED;
     } else {
-        errors.title = null;
-    }
-    if (validateField(values.description)) {
-        errors.description = VALUE_REQUIERED;
-    } else {
-        errors.description = null;
+        errors.comment = null;
     }
     return errors;
 };
 
-class FormDiscussion extends Component {
+class FormComment extends Component {
     constructor(props) {
         super(props);
         this.state = {
             showMessage: false
         };
         this._closeCreate = this._closeCreate.bind(this);
-        this._createDiscussion = this._createDiscussion.bind(this);
+        this._createComment = this._createComment.bind(this);
     }
 
-    _createDiscussion() {
-        const { fields: { nameUser, title, description }, moduleContentReducer, saveDiscussion, consultInfoDiscussions } = this.props;
-        const jsonDiscussion = {
-            "title": title.value,
-            "description": description.value,
-            "idModule": get(moduleContentReducer.get('moduleDescription'), 'idModule', null),
+    _createComment() {
+        const { fields: { nameUser, comment }, foroReducer, saveComment, consultInfoComments } = this.props;
+        const jsonComment = {
+            "comment": comment.value,
+            "idDiscussion": get(foroReducer.get('discussionSeleted'), 'idDiscussion', null),
             "nameUser": nameUser.value,
         };
-        saveDiscussion(jsonDiscussion).then((data) => {
+        saveComment(jsonComment).then((data) => {
             if (isEqual(get(data, 'payload.status'), STATUS_SUCCESS) && isEqual(get(data, 'payload.data'), SUCCESS)) {
                 this.setState({ showMessage: true });
-                consultInfoDiscussions(get(moduleContentReducer.get('moduleDescription'), 'idModule', null));
+                consultInfoComments(get(foroReducer.get('discussionSeleted'), 'idDiscussion', null));
             }
         });
     }
 
     _closeCreate() {
-        const { openCloseModal } = this.props;
+        const { openCloseModalComment } = this.props;
         this.setState({
             showMessage: false
         });
-        openCloseModal(false);
+        openCloseModalComment(false);
     }
 
     render() {
-        const { fields: { nameUser, title, description }, foroReducer, handleSubmit } = this.props;
+        const { fields: { nameUser, comment }, handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this._createDiscussion)}>
+            <form onSubmit={handleSubmit(this._createComment)}>
                 <div style={{ paddingLeft: '20px', paddingRight: '20px', paddingBottom: '30px' }}>
                     <p style={{ paddingTop: "10px", marginBottom: "0px" }}>
                         Los campos marcados con asterisco (<span style={{ color: "red" }}>*</span>) son obligatorios.
                     </p>
                     <Row style={{ marginTop: '15px' }}>
-                        <Col xs={12} md={6} lg={6}>
+                        <Col xs={12} md={12} lg={12}>
                             <dt><span>Nombre (<span style={{ color: "red" }}>*</span>)</span></dt>
                             <dt style={{ paddingTop: "0px" }}>
                                 <Input
@@ -86,27 +80,16 @@ class FormDiscussion extends Component {
                                 />
                             </dt>
                         </Col>
-                        <Col xs={12} md={6} lg={6}>
-                            <dt><span>Título (<span style={{ color: "red" }}>*</span>)</span></dt>
-                            <dt style={{ paddingTop: "0px" }}>
-                                <Input
-                                    name="title"
-                                    type="text"
-                                    max="100"
-                                    {...title}
-                                />
-                            </dt>
-                        </Col>
                         <Col xs={12} md={12} lg={12} style={{ marginTop: '10px' }}>
-                            <dt><span>Descripción (<span style={{ color: "red" }}>*</span>)</span></dt>
+                            <dt><span>Comentario (<span style={{ color: "red" }}>*</span>)</span></dt>
                             <dt style={{ paddingTop: "0px" }}>
                                 <TextArea
-                                    name="description"
+                                    name="comment"
                                     type="text"
                                     max="6000"
                                     style={{ width: '100%', height: '100%' }}
                                     rows={6}
-                                    {...description}
+                                    {...comment}
                                 />
                             </dt>
                         </Col>
@@ -120,8 +103,8 @@ class FormDiscussion extends Component {
                 <SweetAlert
                     type="success"
                     show={this.state.showMessage}
-                    title="Creación de discusión"
-                    text="Señor usuario, la discusión fue creada con exito."
+                    title="Creación de comentario"
+                    text="Señor usuario, el comentario fue creado con exito."
                     onConfirm={() => this._closeCreate()}
                 />
             </form>
@@ -131,20 +114,20 @@ class FormDiscussion extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        saveDiscussion,
-        openCloseModal,
-        consultInfoDiscussions
+        saveComment,
+        openCloseModalComment,
+        consultInfoComments
     }, dispatch);
 }
 
-function mapStateToProps({ moduleContentReducer, foroReducer }, { ownerProps }) {
-    return { moduleContentReducer, foroReducer };
+function mapStateToProps({ foroReducer }, { ownerProps }) {
+    return { foroReducer };
 }
 
 
 export default reduxForm({
-    form: 'submitCreateDiscussion',
+    form: 'submitCreateComment',
     fields,
     destroyOnUnmount: true,
     validate
-}, mapStateToProps, mapDispatchToProps)(FormDiscussion);
+}, mapStateToProps, mapDispatchToProps)(FormComment);
