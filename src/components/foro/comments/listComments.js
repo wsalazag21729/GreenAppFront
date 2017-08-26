@@ -52,7 +52,7 @@ class ListComments extends Component {
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th style={{ width: '200px' }}>Usuario</th>
+                                        <th style={{ width: '170px' }}>Usuario</th>
                                         <th style={{ width: '130px' }}>Fecha</th>
                                         <th>Comentario</th>
                                     </tr>

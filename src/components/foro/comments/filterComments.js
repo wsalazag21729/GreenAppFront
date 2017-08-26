@@ -68,7 +68,7 @@ class FilterComments extends Component {
                         </button>
                     </div>
                 </Col>
-                <Col xs={8} sm={8} md={3} lg={3}>
+                <Col xs={5} sm={5} md={3} lg={3}>
                     <DateTimePickerUi
                         name="dateTime"
                         onChange={val => this.setState({ dateTime: val })}
@@ -79,13 +79,13 @@ class FilterComments extends Component {
                         value={this.state.dateTime}
                     />
                 </Col>
-                <Col xs={12} sm={12} md={1} lg={1} style={{ width: '100%' }}>
+                <Col xs={2} sm={2} md={2} lg={1} style={{ width: '100%' }}>
                     <button className="btn btn-primary" type="button" onClick={this._consultInfoComments} style={{ marginLeft: '10px' }}
                         title="Limpiar búsqueda">
                         Buscar
                     </button>
                 </Col>
-                <Col xs={12} sm={12} md={1} lg={1} style={{ width: '100%' }}>
+                <Col xs={2} sm={2} md={2} lg={1} style={{ width: '100%' }}>
                     <button className="btn btn-primary" type="button" onClick={this._cleanSearch}
                         title="Limpiar búsqueda">
                         <i className="erase icon"

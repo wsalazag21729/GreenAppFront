@@ -29,7 +29,7 @@ class ItemDiscussion extends Component {
         const { title, description, nameUser, createTimestamp } = this.props;
         return (
             <Row style={{
-                marginLeft: '8px', marginRight: '15px', width: '100%', height: '120px', marginTop: '10px',
+                marginLeft: '8px', marginRight: '15px', width: '100%', marginTop: '10px',
                 overflow: 'hidden', border: '1px solid #DCDCDC', padding: '5px', boxShadow: '0px 1px 2px 0 rgba(34, 36, 38, 0.15)'
             }}>
                 <Col xs={4} md={3} lg={3} style={{ height: '25px' }}>
@@ -41,7 +41,7 @@ class ItemDiscussion extends Component {
                 <Col xs={4} md={6} lg={3} style={{ height: '25px', textAlign: 'right' }}>
                     <span style={{ fontWeight: 'bold' }}>Fecha de creación:</span>{moment(createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}
                 </Col>
-                <Col xs={12} md={12} lg={12} style={{ height: '60px' }}>
+                <Col xs={12} md={12} lg={12}>
                     <div><span style={{ fontWeight: 'bold' }}>Descripción</span></div>
                     <div>{shorterStringValue(description, 330)}</div>
                 </Col>
