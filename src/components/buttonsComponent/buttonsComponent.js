@@ -28,7 +28,7 @@ class ButtonsComponent extends Component {
             fnButtonInfo = _clickMenu;
         }
         return (
-            <Col xs={12} md={12} lg={12} style={{ paddingTop: '5px', right: "0px", position: 'fixed' }}>
+            <Col xs={12} md={12} lg={12} style={{ paddingTop: '5px', right: "0px", paddingRight: '5px', position: 'fixed' }}>
                 <button className="btn btn-sm btn-danger" type="button" onClick={fnButtonRed} style={{ marginLeft: '8px' }}>
                     <span style={{ color: "#FFFFFF" }}>Atras</span>
                 </button>
@@ -38,7 +38,7 @@ class ButtonsComponent extends Component {
                 <button className="btn btn-sm btn-warning" type="button" onClick={fnButtonWaning} style={{ marginLeft: '8px' }}>
                     <span style={{ color: "#FFFFFF" }}>Foro</span>
                 </button>
-                <button className="btn btn-sm btn-info" type="button" onClick={fnButtonInfo} style={{ marginLeft: '8px' }}>
+                <button className="btn btn-sm btn-info" type="button" onClick={fnButtonInfo} style={{ marginLeft: '8px', marginRight: '10px' }}>
                     <span style={{ color: "#FFFFFF" }}>Menú</span>
                 </button>
             </Col>

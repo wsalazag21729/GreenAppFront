@@ -4,11 +4,12 @@ import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Input from '../../../ui/input/inputComponent';
 import TextArea from '../../../ui/textarea/textareaComponent';
-import { VALUE_REQUIERED, SUCCESS, STATUS_SUCCESS } from '../../../constantsGlobal';
+import { VALUE_REQUIERED, SUCCESS, STATUS_SUCCESS, MESSAGE_SAVE_DATA } from '../../../constantsGlobal';
 import { validateField } from '../../../actionsGlobal';
 import { saveComment, consultInfoComments, openCloseModalComment } from '../actions';
-import SweetAlert from 'sweetalert-react';
 import { get, isEqual } from 'lodash';
+import { showLoading } from '../../loading/actions';
+import { swtShowMessage } from '../../sweetAlertMessages/actions';
 
 const fields = ["nameUser", 'comment'];
 
@@ -30,34 +31,26 @@ const validate = (values) => {
 class FormComment extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showMessage: false
-        };
-        this._closeCreate = this._closeCreate.bind(this);
         this._createComment = this._createComment.bind(this);
     }
 
     _createComment() {
-        const { fields: { nameUser, comment }, foroReducer, saveComment, consultInfoComments } = this.props;
+        const { fields: { nameUser, comment }, foroReducer, showLoading, saveComment,
+            consultInfoComments, swtShowMessage, openCloseModalComment } = this.props;
+        showLoading(true, MESSAGE_SAVE_DATA);
         const jsonComment = {
             "comment": comment.value,
             "idDiscussion": get(foroReducer.get('discussionSeleted'), 'idDiscussion', null),
             "nameUser": nameUser.value,
         };
         saveComment(jsonComment).then((data) => {
+            showLoading(false, "");
             if (isEqual(get(data, 'payload.status'), STATUS_SUCCESS) && isEqual(get(data, 'payload.data'), SUCCESS)) {
-                this.setState({ showMessage: true });
+                swtShowMessage("success", "Creación de comentario", "Señor usuario, el comentario fue creado con exito.");
                 consultInfoComments(get(foroReducer.get('discussionSeleted'), 'idDiscussion', null));
+                openCloseModalComment(false);
             }
         });
-    }
-
-    _closeCreate() {
-        const { openCloseModalComment } = this.props;
-        this.setState({
-            showMessage: false
-        });
-        openCloseModalComment(false);
     }
 
     render() {
@@ -100,13 +93,6 @@ class FormComment extends Component {
                         Guardar
                     </button>
                 </div>
-                <SweetAlert
-                    type="success"
-                    show={this.state.showMessage}
-                    title="Creación de comentario"
-                    text="Señor usuario, el comentario fue creado con exito."
-                    onConfirm={() => this._closeCreate()}
-                />
             </form>
         );
     }
@@ -116,12 +102,14 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         saveComment,
         openCloseModalComment,
-        consultInfoComments
+        consultInfoComments,
+        showLoading,
+        swtShowMessage
     }, dispatch);
 }
 
-function mapStateToProps({ foroReducer }, { ownerProps }) {
-    return { foroReducer };
+function mapStateToProps({ foroReducer, loading }, { ownerProps }) {
+    return { foroReducer, loading };
 }
 
 

@@ -32,12 +32,12 @@ class MenuComponent extends Component {
     render() {
         const { moduleContentReducer } = this.props;
         return (
-            <div style={{ marginLeft: '15px', marginTop: '12px' }}>
+            <div style={{ marginLeft: '5px', marginTop: '12px' }}>
                 <span style={{ fontSize: '15pt', fontWeight: 'bold', marginLeft: '3px' }}> Menú </span>
                 <Menu vertical>
                     <Menu.Item as='a' onClick={this._cickEnterToContent}>{MODULE_RECYCLING}</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToForo}>Foro</Menu.Item>
-                    <Menu.Item as='a' onClick={this._cickEnterToTest}>¡Evaluate!</Menu.Item>
+                    <Menu.Item as='a' onClick={this._cickEnterToTest}>¡Evalúate!</Menu.Item>
                 </Menu>
             </div>
         );

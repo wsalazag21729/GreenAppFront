@@ -7,9 +7,11 @@ import MenuComponent from '../menu/menu';
 import { consultInfoModule } from '../initialVideo/actions';
 import { consultInfoDescriptionModule } from './actions';
 import { MODULE_RECYCLING } from '../../constantsGlobal';
+import Loading from '../loading/loadingComponent';
 import { } from './actions';
 import { get } from 'lodash';
 import $ from 'jquery';
+import SwtAlertMessage from '../sweetAlertMessages/swtMessageComponent';
 
 class ModuleContent extends Component {
     constructor(props) {
@@ -24,17 +26,21 @@ class ModuleContent extends Component {
         });
     }
 
-   
+
     render() {
-        const { moduleContentReducer } = this.props;
+        const { loading, moduleContentReducer } = this.props;
         return (
             <Row>
-                <Col xs={3} md={3} lg={2} style={{ height: $(window).height() }}>
+                <Col xs={3} md={3} lg={2} style={{ height: $(window).height() }} style={{ background: '#F1F1F1' }}>
                     <MenuComponent />
                 </Col>
                 <Col xs={9} md={9} lg={10} style={{ height: $(window).height(), paddingLeft: '15px' }}>
                     {this.props.children}
+                    {loading.get('showLoading') &&
+                        <Loading />
+                    }
                 </Col>
+                <SwtAlertMessage />
             </Row>
         );
     }
@@ -47,8 +53,8 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-function mapStateToProps({ moduleContentReducer }) {
-    return { moduleContentReducer };
+function mapStateToProps({ moduleContentReducer, loading }) {
+    return { moduleContentReducer, loading };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModuleContent);

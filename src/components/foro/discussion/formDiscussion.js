@@ -4,11 +4,12 @@ import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Input from '../../../ui/input/inputComponent';
 import TextArea from '../../../ui/textarea/textareaComponent';
-import { VALUE_REQUIERED, SUCCESS, STATUS_SUCCESS } from '../../../constantsGlobal';
+import { VALUE_REQUIERED, SUCCESS, STATUS_SUCCESS, MESSAGE_SAVE_DATA } from '../../../constantsGlobal';
 import { validateField } from '../../../actionsGlobal';
 import { saveDiscussion, consultInfoDiscussions, openCloseModal } from '../actions';
-import SweetAlert from 'sweetalert-react';
 import { get, isEqual } from 'lodash';
+import { showLoading } from '../../loading/actions';
+import { swtShowMessage } from '../../sweetAlertMessages/actions';
 
 const fields = ["nameUser", 'title', 'description'];
 
@@ -35,15 +36,13 @@ const validate = (values) => {
 class FormDiscussion extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showMessage: false
-        };
-        this._closeCreate = this._closeCreate.bind(this);
         this._createDiscussion = this._createDiscussion.bind(this);
     }
 
     _createDiscussion() {
-        const { fields: { nameUser, title, description }, moduleContentReducer, saveDiscussion, consultInfoDiscussions } = this.props;
+        const { fields: { nameUser, title, description }, moduleContentReducer, showLoading,
+            saveDiscussion, consultInfoDiscussions, swtShowMessage, openCloseModal } = this.props;
+        showLoading(true, MESSAGE_SAVE_DATA);
         const jsonDiscussion = {
             "title": title.value,
             "description": description.value,
@@ -51,19 +50,13 @@ class FormDiscussion extends Component {
             "nameUser": nameUser.value,
         };
         saveDiscussion(jsonDiscussion).then((data) => {
+            showLoading(false, "");
             if (isEqual(get(data, 'payload.status'), STATUS_SUCCESS) && isEqual(get(data, 'payload.data'), SUCCESS)) {
-                this.setState({ showMessage: true });
+                swtShowMessage("success", "Creación de discusión", "Señor usuario, la discusión fue creada con exito.");
                 consultInfoDiscussions(get(moduleContentReducer.get('moduleDescription'), 'idModule', null));
+                openCloseModal(false);
             }
         });
-    }
-
-    _closeCreate() {
-        const { openCloseModal } = this.props;
-        this.setState({
-            showMessage: false
-        });
-        openCloseModal(false);
     }
 
     render() {
@@ -117,13 +110,6 @@ class FormDiscussion extends Component {
                         Guardar
                     </button>
                 </div>
-                <SweetAlert
-                    type="success"
-                    show={this.state.showMessage}
-                    title="Creación de discusión"
-                    text="Señor usuario, la discusión fue creada con exito."
-                    onConfirm={() => this._closeCreate()}
-                />
             </form>
         );
     }
@@ -133,12 +119,14 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         saveDiscussion,
         openCloseModal,
-        consultInfoDiscussions
+        consultInfoDiscussions,
+        showLoading,
+        swtShowMessage
     }, dispatch);
 }
 
-function mapStateToProps({ moduleContentReducer, foroReducer }, { ownerProps }) {
-    return { moduleContentReducer, foroReducer };
+function mapStateToProps({ moduleContentReducer, foroReducer, loading }, { ownerProps }) {
+    return { moduleContentReducer, foroReducer, loading };
 }
 
 

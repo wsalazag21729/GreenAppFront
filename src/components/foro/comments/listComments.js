@@ -44,7 +44,7 @@ class ListComments extends Component {
         const { foroReducer } = this.props;
         const listInfoComments = foroReducer.get('listInfoComments');
         return (
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '100%', marginLeft: '10px', paddingRight: '8px' }}>
                 {!isNull(listInfoComments) && listInfoComments.length > 0 ?
                     <Row style={{ marginTop: '20px' }}>
                         <Col xs={12} md={12} lg={12}>
@@ -64,13 +64,11 @@ class ListComments extends Component {
                         </Col>
                     </Row>
                     :
-                    <Row>
-                        <Col xs={12} md={12} lg={12}>
-                            <div style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
-                                <span style={{ fontWeight: 'bold' }}>Aún no se han creado comentario</span>
-                            </div>
-                        </Col>
-                    </Row>
+                    <Col xs={12} md={12} lg={12} style={{ height: '25px' }}>
+                        <div style={{ textAlign: "center", marginTop: "20px", marginBottom: "20px" }}>
+                            <span style={{ fontWeight: 'bold' }}>Aún no se han creado comentarios</span>
+                        </div>
+                    </Col>
                 }
                 <ViewDetailComment />
             </div>

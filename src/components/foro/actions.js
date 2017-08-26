@@ -4,8 +4,13 @@ import { CONSULT_INFO_DISCUSSIONS, OPEN_CLOSE_MODAL, OPEN_CLOSE_MODAL_COMMENT,
     OPEN_CLOSE_MODAL_VIEW_COMMENT, UPDATE_COMMENT } from './constants';
 import axios from 'axios';
 
-export function consultInfoDiscussions(idModule) {
-    var request = axios.post(APP_URL + "/api/foroService/getInfoDiscussions", idModule);
+export function consultInfoDiscussions(idModule, searchFilter, dateTime) {
+    const json = {
+        "idModule": idModule,
+        "searchFilter": searchFilter,
+        "dateTime": dateTime
+    }
+    var request = axios.post(APP_URL + "/api/foroService/getInfoDiscussions", json);
     return {
         type: CONSULT_INFO_DISCUSSIONS,
         payload: request
@@ -20,8 +25,13 @@ export function saveDiscussion(jsonDiscussion) {
     }
 }
 
-export function consultInfoComments(idDiscussion) {
-    var request = axios.post(APP_URL + "/api/foroService/getInfoComments", idDiscussion);
+export function consultInfoComments(idDiscussion, searchFilter, dateTime) {
+    const json = {
+        "idDiscussion": idDiscussion,
+        "searchFilter": searchFilter,
+        "dateTime": dateTime
+    }
+    var request = axios.post(APP_URL + "/api/foroService/getInfoComments", json);
     return {
         type: CONSULT_INFO_COMMENTS,
         payload: request

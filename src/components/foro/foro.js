@@ -8,6 +8,7 @@ import { get, isNull } from 'lodash';
 import ButtonsComponent from '../buttonsComponent/buttonsComponent';
 import Discussion from './discussion/discussion';
 import ItemDiscussion from './itemDiscussion/itemDiscussion';
+import FilterDiscussion from './discussion/filterDiscussion';
 import { validateField, redirectUrl } from '../../actionsGlobal';
 import {HEIGTH_CONTROL_PANEL} from '../../constantsGlobal';
 import $ from 'jquery';
@@ -42,12 +43,13 @@ class Foro extends Component {
     render() {
         const { foroReducer } = this.props;
         return (
-            <Row>
+            <Row style={{height: '100%', overflowY: 'auto', marginRight: '0px'}}>
                 <Col style={{ marginLeft: '10px', marginRight: '20px', width: '100%' }}>
                     <ButtonsComponent />
                     <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> Foro </p>
                     <Discussion />
-                    <div style={{ overflowY: 'auto', overflowX: 'hidden', height: $(window).height() - HEIGTH_CONTROL_PANEL, marginTop: '10px', paddingRight: '10px', paddingBottom: '15px' }}>
+                    <FilterDiscussion />
+                    <div style={{ overflowY: 'auto', overflowX: 'hidden', paddingRight: '10px', paddingBottom: '15px' }}>
                         {!validateField(foroReducer.get('listInfoDiscussions')) &&
                             foroReducer.get('listInfoDiscussions').map(this._mapItems)
                         }
