@@ -45,7 +45,7 @@ class ItemDiscussion extends Component {
                     <div><span style={{ fontWeight: 'bold' }}>Descripción</span></div>
                     <div>{shorterStringValue(description, 330)}</div>
                 </Col>
-                <Col xs={4} md={6} lg={3} style={{ textAlign: 'left' }}>
+                <Col xs={4} md={6} lg={3} style={{ textAlign: 'left', marginTop: '10px' }}>
                     <i className="unhide icon blue view-detail-discussion" role="close" onClick={this._viewDetailDiscussion}
                         style={{ cursor: 'pointer', width: '80px' }}> Ver detalle
                     </i>

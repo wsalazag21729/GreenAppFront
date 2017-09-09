@@ -46,7 +46,7 @@ class ListComments extends Component {
         return (
             <div style={{ width: '100%', marginLeft: '10px', paddingRight: '8px' }}>
                 {!isNull(listInfoComments) && listInfoComments.length > 0 ?
-                    <Row style={{ marginTop: '20px' }}>
+                    <Row>
                         <Col xs={12} md={12} lg={12}>
                             <table className="ui striped table">
                                 <thead>

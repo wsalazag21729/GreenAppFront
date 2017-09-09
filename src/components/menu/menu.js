@@ -3,7 +3,6 @@ import { Row, Col } from 'react-flexbox-grid';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MODULE_RECYCLING } from '../../constantsGlobal';
 import { Dropdown, Menu } from 'semantic-ui-react'
 import {redirectUrl} from '../../actionsGlobal';
 import { get } from 'lodash';
@@ -35,7 +34,7 @@ class MenuComponent extends Component {
             <div style={{ marginLeft: '5px', marginTop: '12px' }}>
                 <span style={{ fontSize: '15pt', fontWeight: 'bold', marginLeft: '3px' }}> Menú </span>
                 <Menu vertical>
-                    <Menu.Item as='a' onClick={this._cickEnterToContent}>{MODULE_RECYCLING}</Menu.Item>
+                    <Menu.Item as='a' onClick={this._cickEnterToContent}>{window.localStorage.getItem('nameModule')}</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToForo}>Foro</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToTest}>¡Evalúate!</Menu.Item>
                 </Menu>

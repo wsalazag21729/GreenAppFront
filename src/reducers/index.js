@@ -6,6 +6,7 @@ import foroReducer from '../components/foro/reducer';
 import { reducer as formReducer } from 'redux-form';
 import loading from '../components/loading/reducer';
 import sweetAlertReducer from '../components/sweetAlertMessages/reducer';
+import testReducer from '../components/test/reducer';
 
 export default combineReducers({
     routing: routerReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     foroReducer,
     form: formReducer,
     loading,
-    swtMessage: sweetAlertReducer
+    swtMessage: sweetAlertReducer,
+    testReducer
 });

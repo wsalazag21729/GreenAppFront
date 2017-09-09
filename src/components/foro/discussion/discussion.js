@@ -21,7 +21,7 @@ class Discussion extends Component {
         const { foroReducer } = this.props;
         return (
             <Col>
-                <button className="btn btn-sm btn-info" type="button" onClick={() => this._editValueModal(true)} style={{ marginLeft: '8px' }}>
+                <button className="btn btn-primary" type="button" onClick={() => this._editValueModal(true)} style={{ marginLeft: '8px' }}>
                     <span style={{ color: "#FFFFFF" }}>Crear discusión</span>
                 </button>
                 <Modal

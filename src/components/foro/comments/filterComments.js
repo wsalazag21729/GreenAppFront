@@ -61,7 +61,7 @@ class FilterComments extends Component {
             <Row style={{ marginTop: '15px', marginLeft: '0px', width: '100%' }}>
                 <Col xs={12} sm={12} md={4} lg={4}>
                     <div className="InputAddOn">
-                        <input style={{ padding: '0px 11px !important' }} id="searchExpression" onKeyPress={this._handleChangeKeyword} type="text" placeholder="Búsqueda por título, nombre de usuario y descripción"
+                        <input style={{ padding: '0px 11px !important' }} id="searchExpression" onKeyPress={this._handleChangeKeyword} type="text" placeholder="Búsqueda por nombre de usuario y descripción"
                             value={this.state.searchFilter} onChange={this._handleChangeKeyword} className="input InputAddOn-field" />
                         <button onClick={this._consultInfoComments} className="button InputAddOn-item">
                             <i className="search icon" />
@@ -80,13 +80,13 @@ class FilterComments extends Component {
                     />
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={1} style={{ width: '100%' }}>
-                    <button className="btn btn-primary" type="button" onClick={this._consultInfoComments} style={{ marginLeft: '10px' }}
+                    <button className="btn btn-md btn-primary" type="button" onClick={this._consultInfoComments} style={{ marginLeft: '10px' }}
                         title="Limpiar búsqueda">
                         Buscar
                     </button>
                 </Col>
                 <Col xs={2} sm={2} md={2} lg={1} style={{ width: '100%' }}>
-                    <button className="btn btn-primary" type="button" onClick={this._cleanSearch}
+                    <button className="btn btn-md btn-primary" type="button" onClick={this._cleanSearch}
                         title="Limpiar búsqueda">
                         <i className="erase icon"
                             style={{ color: "white", margin: '0em', fontSize: '1.2em' }}></i>

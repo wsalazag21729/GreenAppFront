@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import MenuComponent from '../menu/menu';
 import { consultInfoModule } from '../initialVideo/actions';
 import { consultInfoDescriptionModule } from './actions';
-import { MODULE_RECYCLING } from '../../constantsGlobal';
 import Loading from '../loading/loadingComponent';
 import { } from './actions';
 import { get } from 'lodash';
@@ -20,10 +19,7 @@ class ModuleContent extends Component {
 
     componentWillMount() {
         const { consultInfoModule, consultInfoDescriptionModule } = this.props;
-        consultInfoModule(MODULE_RECYCLING).then((data) => {
-            const idModule = get(data.payload.data, 'idModule');
-            consultInfoDescriptionModule(idModule);
-        });
+        consultInfoDescriptionModule(window.localStorage.getItem('idModule'));
     }
 
 

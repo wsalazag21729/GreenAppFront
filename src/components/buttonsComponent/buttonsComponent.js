@@ -14,33 +14,42 @@ class ButtonsComponent extends Component {
     }
 
     render() {
-        let { fnButtonRed, fnButtonGreen, fnButtonWaning, fnButtonInfo } = this.props;
-        if( isUndefined(fnButtonRed) ){
+        let { fnButtonRed, fnButtonGreen, fnButtonYellow, fnButtonBlue } = this.props;
+        const { showBtnRed, showBtnGreen, showBtnYellow, showBtnBlue, nameButtonBlue } = this.props;
+        if (showBtnRed && isUndefined(fnButtonRed)) {
             fnButtonRed = _clickBack;
         }
-        if( isUndefined(fnButtonGreen) ){
+        if (showBtnGreen && isUndefined(fnButtonGreen)) {
             fnButtonGreen = _clickEnter;
         }
-        if( isUndefined(fnButtonWaning) ){
-            fnButtonWaning = _clickForo;
+        if (showBtnYellow && isUndefined(fnButtonYellow)) {
+            fnButtonYellow = _clickForo;
         }
-        if( isUndefined(fnButtonInfo) ){
-            fnButtonInfo = _clickMenu;
+        if (showBtnBlue && isUndefined(fnButtonBlue)) {
+            fnButtonBlue = _clickMenu;
         }
         return (
-            <Col xs={12} md={12} lg={12} style={{ paddingTop: '5px', right: "0px", paddingRight: '5px', position: 'fixed' }}>
-                <button className="btn btn-sm btn-danger" type="button" onClick={fnButtonRed} style={{ marginLeft: '8px' }}>
-                    <span style={{ color: "#FFFFFF" }}>Atras</span>
-                </button>
-                <button className="btn btn-sm btn-success" type="button" onClick={fnButtonGreen} style={{ marginLeft: '8px' }}>
-                    <span style={{ color: "#FFFFFF" }}>Ingresar</span>
-                </button>
-                <button className="btn btn-sm btn-warning" type="button" onClick={fnButtonWaning} style={{ marginLeft: '8px' }}>
-                    <span style={{ color: "#FFFFFF" }}>Foro</span>
-                </button>
-                <button className="btn btn-sm btn-info" type="button" onClick={fnButtonInfo} style={{ marginLeft: '8px', marginRight: '10px' }}>
-                    <span style={{ color: "#FFFFFF" }}>Menú</span>
-                </button>
+            <Col xs={8} md={6} lg={7} style={{ paddingTop: '5px', textAlign: 'right' }}>
+                {showBtnRed &&
+                    <button className="btn btn-sm btn-danger" type="button" onClick={fnButtonRed} style={{ marginLeft: '8px' }}>
+                        <span style={{ color: "#FFFFFF" }}>Atras</span>
+                    </button>
+                }
+                {showBtnGreen &&
+                    <button className="btn btn-sm btn-success" type="button" onClick={fnButtonGreen} style={{ marginLeft: '8px' }}>
+                        <span style={{ color: "#FFFFFF" }}>Ingresar</span>
+                    </button>
+                }
+                {showBtnYellow &&
+                    <button className="btn btn-sm btn-warning" type="button" onClick={fnButtonYellow} style={{ marginLeft: '8px' }}>
+                        <span style={{ color: "#FFFFFF" }}>Foro</span>
+                    </button>
+                }
+                {showBtnBlue &&
+                    <button className="btn btn-sm btn-primary" type="button" onClick={fnButtonBlue} style={{ marginLeft: '8px', marginRight: '10px' }}>
+                        <span style={{ color: "#FFFFFF" }}>{isUndefined(nameButtonBlue) ? "Menú" : nameButtonBlue}</span>
+                    </button>
+                }
             </Col>
         );
     }

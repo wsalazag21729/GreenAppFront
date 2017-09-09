@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { redirectUrl } from '../../../actionsGlobal';
 import { get, isNull, isUndefined } from 'lodash';
+import { Divider } from 'semantic-ui-react';
 import ButtonsComponent from '../../buttonsComponent/buttonsComponent';
-import { consultInfoComments } from '../actions';
+import { consultInfoComments, openCloseModalComment } from '../actions';
 import ButtonAddComment from './buttonAddComment';
 import ListComments from './listComments';
 import FilterComments from './filterComments';
@@ -15,6 +16,7 @@ import $ from 'jquery';
 class Comments extends Component {
     constructor(props) {
         super(props);
+        this._openModalComment = this._openModalComment.bind(this);
     }
 
     componentWillMount() {
@@ -26,14 +28,25 @@ class Comments extends Component {
         }
     }
 
+    _openModalComment() {
+        const { openCloseModalComment } = this.props;
+        openCloseModalComment(true);
+    }
+
     render() {
         const { foroReducer } = this.props;
         const jsonDiscussion = foroReducer.get('discussionSeleted');
         return (
-            <div style={{height: '100%', overflowY: 'auto', overflowX: 'hidden', paddingBottom: '15px'}}>
-                <ButtonsComponent />
-                <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> Foro </p>
-                <Row style={{ marginLeft: '1px', paddingRight: '8px', width: '100%' }}>
+            <div style={{ height: '100%', overflowY: 'auto', overflowX: 'hidden', paddingBottom: '15px' }}>
+                <Row style={{ marginRight: '5px' }}>
+                    <Col xs={4} md={6} lg={5} style={{ width: '100%' }}>
+                        <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> Foro </p>
+                    </Col>
+                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} showBtnYellow={true}
+                        showBtnBlue={true} nameButtonBlue="Agregar comentario" fnButtonBlue={this._openModalComment} />
+                    <Col xs={12} md={12} lg={12}>
+                        <Divider clearing />
+                    </Col>
                     <Col xs={4} md={3} lg={3} style={{ height: '25px' }}>
                         <span style={{ fontWeight: 'bold' }}>Nombre: </span>{jsonDiscussion.nameUser}
                     </Col>
@@ -58,7 +71,8 @@ class Comments extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        consultInfoComments
+        consultInfoComments,
+        openCloseModalComment
     }, dispatch);
 }
 
