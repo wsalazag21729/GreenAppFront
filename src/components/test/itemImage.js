@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SIZE_MINI_STATISTIC } from './constants';
-import { Image, Reveal } from 'semantic-ui-react';
+import { Image, Reveal, Popup } from 'semantic-ui-react';
 import { get, indexOf, isEqual, isNull, size } from 'lodash';
 import {
     setCount, setIdImageEvaluated, discoverImage, alterPlaysTest,
@@ -22,7 +22,6 @@ class ItemImage extends Component {
     onClickImage(id, idx) {
         const { testReducer, setIdImageEvaluated, setCount, discoverImage, alterPlaysTest,
             setIdxItemSeleted, setIdxItemSeletedTemporary, swtShowMessage } = this.props;
-        console.log('1');
         //Solo valido si doy click en una imagen que ya se emparejado o si doy click en la misma imagen
         if (indexOf(testReducer.get('listIdsImagesMounted'), id) < 0 &&
             (isNull(testReducer.get('idxItemSeleted')) || !isEqual(testReducer.get('idxItemSeleted'), idx))) {
@@ -73,9 +72,20 @@ class ItemImage extends Component {
         }
 
         return (
-            <Col xs={3} md={2} lg={2} style={{ marginTop: '10px' }}>
-                <Image size='medium' style={itemResolve ? { cursor: 'no-drop' } : { cursor: 'pointer', border: '1px solid #ECECEC' }} 
-                    src={"/img/" + url} onClick={() => this.onClickImage(id, idx)} />
+            <Col xs={3} md={2} lg={2} style={{ marginTop: '10px', padding: '5px' }}>
+                {indexOf(testReducer.get('listIdsImagesMounted'), id) >= 0 ?
+                    <Popup
+                        trigger={
+                            <Image size='medium' style={itemResolve ? { cursor: 'no-drop' } : { cursor: 'pointer', border: '1px solid #ECECEC' }}
+                                src={"/img/" + url} onClick={() => this.onClickImage(id, idx)} />
+                        }
+                        content={message}
+                        size='large'
+                    />
+                    :
+                    <Image size='medium' style={itemResolve ? { cursor: 'no-drop' } : { cursor: 'pointer', border: '1px solid #ECECEC' }}
+                        src={"/img/" + url} onClick={() => this.onClickImage(id, idx)} />
+                }
             </Col>
         );
     }

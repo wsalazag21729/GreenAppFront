@@ -12,7 +12,7 @@ import ModalChooseModule from './modalChooseModule/modalChooseModule';
 import { get } from 'lodash';
 import $ from 'jquery';
 
-const HEIGTH_PANEL_BOTTOMS = 40;
+const HEIGTH_PANEL_BOTTOMS = 10;
 
 class InitialVideo extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class InitialVideo extends Component {
 
     _eventButtonInContent() {
         const { consultAllModules, openCloseModalChoose } = this.props;
-        consultAllModules().then( (data) => {
+        consultAllModules().then((data) => {
             openCloseModalChoose(true);
         })
     }
@@ -37,13 +37,15 @@ class InitialVideo extends Component {
         const { initialVideoRecuder } = this.props;
         const linkVideo = get(initialVideoRecuder.get('infoModule'), 'linkInitialVideo', null);
         return (
-            <Row>
-                <ButtonsComponent showBtnGreen={true} fnButtonGreen={this._eventButtonInContent} />
-                <FrameVideo linkVideo={linkVideo}
-                    height={$(window).height() - HEIGTH_PANEL_BOTTOMS - 4}
-                    paddingTop={HEIGTH_PANEL_BOTTOMS} />
-                <ModalChooseModule />
-            </Row>
+            <div style={{ verflow: 'hidden', paddingLeft: '5px', paddingRight: '5px'}}>
+                <Row>
+                    <ButtonsComponent showBtnGreen={true} fnButtonGreen={this._eventButtonInContent}  origin="initialVideo"/>
+                    <FrameVideo linkVideo={linkVideo}
+                        height={$(window).height() - HEIGTH_PANEL_BOTTOMS - 40}
+                        paddingTop={HEIGTH_PANEL_BOTTOMS} />
+                    <ModalChooseModule />
+                </Row>
+            </div>
         );
     }
 }

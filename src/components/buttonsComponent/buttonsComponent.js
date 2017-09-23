@@ -3,7 +3,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { reduxForm } from 'redux-form';
 import { MODULE_RECYCLING } from '../../constantsGlobal';
 import { redirectUrl, _clickBack, _clickEnter, _clickForo, _clickMenu } from '../../actionsGlobal';
-import { get, isUndefined } from 'lodash';
+import { get, isUndefined, isEqual } from 'lodash';
 import $ from 'jquery';
 
 const HEIGTH_PANEL_BOTTOMS = 40;
@@ -14,7 +14,7 @@ class ButtonsComponent extends Component {
     }
 
     render() {
-        let { fnButtonRed, fnButtonGreen, fnButtonYellow, fnButtonBlue } = this.props;
+        let { fnButtonRed, fnButtonGreen, fnButtonYellow, fnButtonBlue, origin } = this.props;
         const { showBtnRed, showBtnGreen, showBtnYellow, showBtnBlue, nameButtonBlue } = this.props;
         if (showBtnRed && isUndefined(fnButtonRed)) {
             fnButtonRed = _clickBack;
@@ -29,10 +29,10 @@ class ButtonsComponent extends Component {
             fnButtonBlue = _clickMenu;
         }
         return (
-            <Col xs={8} md={6} lg={7} style={{ paddingTop: '5px', textAlign: 'right' }}>
+            <Col xs={isEqual(origin, 'initialVideo') ? 12 : 8} md={isEqual(origin, 'initialVideo') ? 12 : 6} lg={isEqual(origin, 'initialVideo') ? 12 : 7} style={{ paddingTop: '5px', textAlign: 'right' }}>
                 {showBtnRed &&
                     <button className="btn btn-sm btn-danger" type="button" onClick={fnButtonRed} style={{ marginLeft: '8px' }}>
-                        <span style={{ color: "#FFFFFF" }}>Atras</span>
+                        <span style={{ color: "#FFFFFF" }}>Atrás</span>
                     </button>
                 }
                 {showBtnGreen &&

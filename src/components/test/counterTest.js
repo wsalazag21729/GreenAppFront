@@ -8,11 +8,6 @@ import { SIZE_MINI_STATISTIC } from './constants';
 class CounterTest extends Component {
     constructor(props) {
         super(props);
-        this._resetTest = this._resetTest.bind(this);
-    }
-
-    _resetTest() {
-        console.log("Holaaaaaaaaaaaaaaa");
     }
 
     render() {
