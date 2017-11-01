@@ -3,7 +3,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Dropdown, Menu } from 'semantic-ui-react'
+import { Menu, Segment } from 'semantic-ui-react'
 import {redirectUrl} from '../../actionsGlobal';
 import { get } from 'lodash';
 import $ from 'jquery';
@@ -31,14 +31,13 @@ class MenuComponent extends Component {
     render() {
         const { moduleContentReducer } = this.props;
         return (
-            <div style={{ marginLeft: '5px', marginTop: '12px' }}>
-                <span style={{ fontSize: '15pt', fontWeight: 'bold', marginLeft: '3px' }}> Menú </span>
-                <Menu vertical>
+            <Col xs={12} md={12} lg={12}>
+                <Menu pointing secondary>
                     <Menu.Item as='a' onClick={this._cickEnterToContent}>{window.localStorage.getItem('nameModule')}</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToForo}>Foro</Menu.Item>
                     <Menu.Item as='a' onClick={this._cickEnterToTest}>¡Evalúate!</Menu.Item>
                 </Menu>
-            </div>
+            </Col>
         );
     }
 }

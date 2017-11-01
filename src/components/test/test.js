@@ -10,6 +10,7 @@ import CounterTest from './counterTest';
 import ItemImage from './ItemImage';
 import { size, isEqual } from 'lodash';
 import { sample } from 'lodash';
+import { URL_BASE_IMG } from '../../constantsGlobal';
 
 const arrayUnmontedImage = [
     'noSeletedImage.png',
@@ -47,6 +48,7 @@ class Test extends Component {
     }
 
     _mapImagesModule(item, idx) {
+        console.log('URL_BASE_IMG', URL_BASE_IMG);
         return <ItemImage key={idx} idx={idx} id={item.idImagesModule} message={item.message}
             urlImage={item.name} urlUnmontedImage={urlImageNoSeleted} />
     }
@@ -56,16 +58,16 @@ class Test extends Component {
         return (
             <div style={{ height: '100%', overflowY: 'auto', overflowX: 'hidden', paddingBottom: '15px' }}>
                 <Row style={{ marginRight: '5px' }}>
-                    <Col xs={4} md={6} lg={5} style={{ width: '100%' }}>
+                    <Col xs={3} md={6} lg={5} style={{ width: '100%' }}>
                         <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> ¡Evalúate! </p>
                     </Col>
-                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} showBtnYellow={true}
+                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} nameButtonGreen={window.localStorage.getItem('nameModule')} showBtnYellow={true}
                         showBtnBlue={true} nameButtonBlue="Reiniciar juego" fnButtonBlue={this._resetTest} />
                     <Col xs={12} md={12} lg={12}>
                         <Divider clearing />
                     </Col>
                     <CounterTest />
-                    <Col xs={3} md={2} lg={2} style={{ textAlign: 'right' }}>
+                    <Col xs={12} md={2} lg={2} style={{ textAlign: 'right' }}>
                         <button className="btn btn-primary" type="button" onClick={() => this._resetTest(true)}>
                             <span style={{ color: "#FFFFFF" }}>Reiniciar juego</span>
                         </button>

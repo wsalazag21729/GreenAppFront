@@ -4,6 +4,7 @@ import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SIZE_MINI_STATISTIC } from './constants';
+import { URL_BASE_IMG } from '../../constantsGlobal';
 import { Image, Reveal, Popup } from 'semantic-ui-react';
 import { get, indexOf, isEqual, isNull, size } from 'lodash';
 import {
@@ -42,7 +43,7 @@ class ItemImage extends Component {
                     setIdxItemSeletedTemporary(idx);
                     setTimeout(() => {
                         this._clearOnePlayTest();
-                    }, 400)
+                    }, 600)
                 }
             } else {
                 setCount(1);
@@ -77,14 +78,14 @@ class ItemImage extends Component {
                     <Popup
                         trigger={
                             <Image size='medium' style={itemResolve ? { cursor: 'no-drop' } : { cursor: 'pointer', border: '1px solid #ECECEC' }}
-                                src={"/img/" + url} onClick={() => this.onClickImage(id, idx)} />
+                                src={URL_BASE_IMG + "/img/" + url} onClick={() => this.onClickImage(id, idx)} />
                         }
                         content={message}
                         size='large'
                     />
                     :
                     <Image size='medium' style={itemResolve ? { cursor: 'no-drop' } : { cursor: 'pointer', border: '1px solid #ECECEC' }}
-                        src={"/img/" + url} onClick={() => this.onClickImage(id, idx)} />
+                        src={URL_BASE_IMG + "/img/" + url} onClick={() => this.onClickImage(id, idx)} />
                 }
             </Col>
         );

@@ -26,7 +26,7 @@ var webpack = require('webpack'),
             path: assetsPath,
             filename: '[name]-[chunkhash].js',
             chunkFilename: '[name]-[chunkhash].js',
-            publicPath: '/biztrack/',
+            publicPath: "",
         },
         progress: true,
         resolve: {
@@ -122,7 +122,7 @@ var webpack = require('webpack'),
             }),
             webpackIsomorphicToolsPlugin,
             new HtmlWebpackPlugin({
-                title: 'Biztrack',
+                title: 'GreenApp',
                 inject: 'body',
                 template: 'src/lib/indexProduction.ejs',
             })

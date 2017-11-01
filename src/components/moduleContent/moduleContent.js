@@ -26,18 +26,18 @@ class ModuleContent extends Component {
     render() {
         const { loading, moduleContentReducer } = this.props;
         return (
-            <Row>
-                <Col xs={3} md={3} lg={2} style={{ height: $(window).height() }} style={{ background: '#F1F1F1' }}>
+            <div>
+                <Row>
                     <MenuComponent />
-                </Col>
-                <Col xs={9} md={9} lg={10} style={{ height: $(window).height(), paddingLeft: '15px' }}>
+                </Row>
+                <Row style={{ height: $(window).height() - 40, paddingLeft: '15px' }}>
                     {this.props.children}
                     {loading.get('showLoading') &&
                         <Loading />
                     }
-                </Col>
+                </Row>
                 <SwtAlertMessage />
-            </Row>
+            </div>
         );
     }
 }

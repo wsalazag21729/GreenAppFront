@@ -31,10 +31,10 @@ class Content extends Component {
         return (
             <div style={{ height: '100%', overflowY: 'auto', overflowX: 'hidden', paddingBottom: '15px' }}>
                 <Row style={{ marginRight: '5px' }}>
-                    <Col xs={4} md= {6} lg={5} style={{ width: '100%' }}>
+                    <Col xs={3} md= {6} lg={5} style={{ width: '100%' }}>
                         <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> {window.localStorage.getItem('nameModule')} </p>
                     </Col>
-                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} showBtnYellow={true} showBtnBlue={true} />
+                    <ButtonsComponent showBtnRed={true} showBtnGreen={false} showBtnYellow={true} showBtnBlue={true} />
                     <Col xs={12} md={12} lg={12}>
                         <Divider clearing />
                     </Col>

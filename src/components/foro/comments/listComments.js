@@ -7,6 +7,7 @@ import { shorterStringValue } from '../../../actionsGlobal';
 import { openCloseModalViewComment, setCommentSeleted } from '../actions';
 import ViewDetailComment from './viewDetailComment';
 import moment from 'moment';
+import { Table } from 'semantic-ui-react'
 
 class ListComments extends Component {
     constructor(props) {
@@ -28,39 +29,39 @@ class ListComments extends Component {
     }
 
     _mapValuesComments(comment, idx) {
-        return <tr key={idx}>
-            <td className="collapsing">
+        return <Table.Row key={idx}>
+            <Table.Cell>
                 <i className="zoom icon" title="Ver detalle"
                     onClick={this._viewDetailsComment.bind(this, comment)}
                     style={{ cursor: "pointer" }} />
-            </td>
-            <td>{shorterStringValue(comment.nameUser, 50)}</td>
-            <td>{moment(comment.createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}</td>
-            <td>{shorterStringValue(comment.comment, 180)}</td>
-        </tr>
+            </Table.Cell>
+            <Table.Cell>{shorterStringValue(comment.nameUser, 50)}</Table.Cell>
+            <Table.Cell>{moment(comment.createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}</Table.Cell>
+            <Table.Cell>{shorterStringValue(comment.nameUser, 50)}</Table.Cell>
+        </Table.Row>
     }
 
     render() {
         const { foroReducer } = this.props;
         const listInfoComments = foroReducer.get('listInfoComments');
         return (
-            <div style={{ width: '100%', marginLeft: '10px', paddingRight: '8px' }}>
+            <div style={{ width: '100%', marginLeft: '10px', paddingRight: '8px', marginTop: '5px' }}>
                 {!isNull(listInfoComments) && listInfoComments.length > 0 ?
                     <Row>
                         <Col xs={12} md={12} lg={12}>
-                            <table className="ui striped table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th style={{ width: '170px' }}>Usuario</th>
-                                        <th style={{ width: '130px' }}>Fecha</th>
-                                        <th>Comentario</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <Table celled>
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell style={{width: '30px'}}></Table.HeaderCell>
+                                        <Table.HeaderCell>Usuario</Table.HeaderCell>
+                                        <Table.HeaderCell>Fecha</Table.HeaderCell>
+                                        <Table.HeaderCell>Comentario</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+                                <Table.Body>
                                     {listInfoComments.map(this._mapValuesComments)}
-                                </tbody>
-                            </table>
+                                </Table.Body>
+                            </Table>
                         </Col>
                     </Row>
                     :

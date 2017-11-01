@@ -1,11 +1,15 @@
 let API_URL;
+let BASE_IMG;
 if (process.env.NODE_ENV === "production") {
-    API_URL = "";
+    API_URL = "http://52.202.201.182:8080/GreenApp";
+    BASE_IMG = "https://s3.amazonaws.com/greenapp";
 } else {
     API_URL = "http://localhost:8084/GreenAppWeb";
+    BASE_IMG = "";
 }
 
 export const APP_URL = API_URL;
+export const URL_BASE_IMG = BASE_IMG;
 
 
 export const MODULE_RECYCLING = "Reciclaje";

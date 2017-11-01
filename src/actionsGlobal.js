@@ -32,8 +32,8 @@ export function _clickForo() {
     redirectUrl("/moduleContent/foro");
 }
 
-export function _clickMenu() {
-    redirectUrl("/moduleContent/content");
+export function _clickTest() {
+    redirectUrl("/moduleContent/test");
 }
 
 export function _clickEnter() {

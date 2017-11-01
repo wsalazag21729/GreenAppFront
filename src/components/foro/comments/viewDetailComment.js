@@ -36,10 +36,10 @@ class ViewDetailComment extends Component {
                             </button>
                         </div>
                         <Row style={{margin: '10px'}}>
-                            <Col xs={4} md={6} lg={5}>
+                            <Col xs={6} md={6} lg={5}>
                                 <span style={{ fontWeight: 'bold' }}>Nombre: </span>{isNull(comment) ? "" : comment.nameUser}
                             </Col>
-                            <Col xs={4} md={6} lg={5} style={{ textAlign: 'right' }}>
+                            <Col xs={6} md={6} lg={5} style={{ textAlign: 'right' }}>
                                 <span style={{ fontWeight: 'bold' }}>Fecha de creación:</span>{isNull(comment) ? "" : moment(comment.createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}
                             </Col>
                             <Col xs={12} md={12} lg={12} style={{ marginTop: '10px' }}>

@@ -79,7 +79,7 @@ class FilterComments extends Component {
                         value={this.state.dateTime}
                     />
                 </Col>
-                <Col xs={2} sm={2} md={2} lg={1} style={{ width: '100%' }}>
+                <Col xs={3} sm={2} md={2} lg={1} style={{ width: '100%' }}>
                     <button className="btn btn-md btn-primary" type="button" onClick={this._consultInfoComments} style={{ marginLeft: '10px' }}
                         title="Limpiar búsqueda">
                         Buscar

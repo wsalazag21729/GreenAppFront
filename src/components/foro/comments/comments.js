@@ -3,10 +3,10 @@ import { Row, Col } from 'react-flexbox-grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { redirectUrl } from '../../../actionsGlobal';
-import { get, isNull, isUndefined } from 'lodash';
+import { get, isNull, isUndefined, isNil } from 'lodash';
 import { Divider } from 'semantic-ui-react';
 import ButtonsComponent from '../../buttonsComponent/buttonsComponent';
-import { consultInfoComments, openCloseModalComment } from '../actions';
+import { consultInfoComments, openCloseModalComment, setDiscussionSeleted } from '../actions';
 import ButtonAddComment from './buttonAddComment';
 import ListComments from './listComments';
 import FilterComments from './filterComments';
@@ -20,12 +20,25 @@ class Comments extends Component {
     }
 
     componentWillMount() {
-        const { foroReducer, consultInfoComments } = this.props;
-        if (isNull(foroReducer.get('discussionSeleted')) || isUndefined(foroReducer.get('discussionSeleted'))) {
-            redirectUrl("/moduleContent/content");
-        } else {
-            consultInfoComments(get(foroReducer.get('discussionSeleted'), 'idDiscussion', null));
+        const { foroReducer, consultInfoComments, setDiscussionSeleted } = this.props;
+        let idDiscussion = get(foroReducer.get('discussionSeleted'), 'idDiscussion', null);
+        console.log("1", idDiscussion);
+        console.log('idDiscussion', idDiscussion);
+        if (_.isNull(idDiscussion)) {
+            console.log('idDiscussion', idDiscussion);
+            const jsonDiscussion = {
+                "idDiscussion": window.localStorage.getItem('idDiscussion'),
+                "title": window.localStorage.getItem('titleDiscussion'),
+                "nameUser": window.localStorage.getItem('nameUserDiscussion'),
+                "description": window.localStorage.getItem('descriptionDiscussion'),
+                "createTimestamp": window.localStorage.getItem('createTimestampDiscussion')
+            };
+            console.log(jsonDiscussion);
+            idDiscussion = jsonDiscussion.idDiscussion;
+            setDiscussionSeleted(jsonDiscussion);
         }
+        console.log(idDiscussion);
+        consultInfoComments(idDiscussion);
     }
 
     _openModalComment() {
@@ -39,26 +52,26 @@ class Comments extends Component {
         return (
             <div style={{ height: '100%', overflowY: 'auto', overflowX: 'hidden', paddingBottom: '15px' }}>
                 <Row style={{ marginRight: '5px' }}>
-                    <Col xs={4} md={6} lg={5} style={{ width: '100%' }}>
+                    <Col xs={3} md={6} lg={5} style={{ width: '100%' }}>
                         <p style={{ fontSize: '15pt', fontWeight: 'bold', margin: '5px 0 10px 6px' }}> Foro </p>
                     </Col>
-                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} showBtnYellow={true}
-                        showBtnBlue={true} nameButtonBlue="Agregar comentario" fnButtonBlue={this._openModalComment} />
+                    <ButtonsComponent showBtnRed={true} showBtnGreen={true} nameButtonGreen={window.localStorage.getItem('nameModule')} showBtnYellow={true}
+                        nameButtonYellow="Crear comentario" fnButtonYellow={this._openModalComment} showBtnBlue={true} />
                     <Col xs={12} md={12} lg={12}>
                         <Divider clearing />
                     </Col>
                     <Col xs={4} md={3} lg={3} style={{ height: '25px' }}>
-                        <span style={{ fontWeight: 'bold' }}>Nombre: </span>{jsonDiscussion.nameUser}
+                        <span style={{ fontWeight: 'bold' }}>Nombre: </span>{isNil(jsonDiscussion) ? "" : jsonDiscussion.nameUser}
                     </Col>
                     <Col xs={4} md={3} lg={6} style={{ height: '25px' }}>
-                        <span style={{ fontWeight: 'bold' }}>Titulo: </span>{jsonDiscussion.title}
+                        <span style={{ fontWeight: 'bold' }}>Titulo: </span>{isNil(jsonDiscussion) ? "" : jsonDiscussion.title}
                     </Col>
                     <Col xs={4} md={6} lg={3} style={{ textAlign: 'right', height: '25px' }}>
-                        <span style={{ fontWeight: 'bold' }}>Fecha de creación:</span>{moment(jsonDiscussion.createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}
+                        <span style={{ fontWeight: 'bold' }}>Fecha de creación:</span>{isNil(jsonDiscussion) ? "" : moment(jsonDiscussion.createTimestamp, 'x').locale('es').format('DD MMM YYYY HH:mm')}
                     </Col>
                     <Col xs={12} md={12} lg={12} style={{ marginTop: '10px' }}>
                         <div><span style={{ fontWeight: 'bold' }}>Descripción</span></div>
-                        <div style={{ textAlign: 'justify' }}>{jsonDiscussion.description}</div>
+                        <div style={{ textAlign: 'justify' }}>{isNil(jsonDiscussion) ? "" : jsonDiscussion.description}</div>
                     </Col>
                     <ButtonAddComment />
                     <FilterComments />
@@ -72,7 +85,8 @@ class Comments extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         consultInfoComments,
-        openCloseModalComment
+        openCloseModalComment,
+        setDiscussionSeleted
     }, dispatch);
 }
 

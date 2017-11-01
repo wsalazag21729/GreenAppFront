@@ -13,7 +13,7 @@ class CounterTest extends Component {
     render() {
         const { testReducer } = this.props;
         return (
-            <Col xs={9} md={10} lg={10}>
+            <Col xs={12} md={10} lg={10}>
                 <Statistic.Group size={SIZE_MINI_STATISTIC}>
 
                     <Statistic size={SIZE_MINI_STATISTIC} >
